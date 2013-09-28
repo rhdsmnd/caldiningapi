@@ -35,9 +35,13 @@ def getmenu(Name, MealType):
     url = "http://services.housing.berkeley.edu/FoodPro/dining/static/DiningMenus.asp?dtCurDate=9/28/2013&strCurLocation=01&strCurLocationName=" + Name.upper()
     page = urllib2.urlopen(url)
     soup = BeautifulSoup(page.read())
+    foodList = []
     for link in soup.find_all('a'):
         if 'label.asp?locationNum' in link.get('href'):
-            
+            name = link.name
+            nFactsLink = "http://services.housing.berkeley.edu/FoodPro/dining/static/" + link.href
+            foodList.append([name, nFactsLink])
+    return foodList
     
     
 
